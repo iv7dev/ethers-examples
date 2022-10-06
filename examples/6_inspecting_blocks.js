@@ -1,7 +1,10 @@
 const { ethers } = require("ethers");
 
-const INFURA_ID = ''
-const provider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_ID}`)
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+  }
+
+const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_BINANCE)
 
 const main = async () => {
     const block = await provider.getBlockNumber()

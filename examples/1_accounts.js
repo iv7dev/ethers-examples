@@ -1,9 +1,14 @@
+// require('dotenv').config();
 const { ethers } = require("ethers");
+// si esta en produccion NO uses dotenv
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+  }
+ 
 
-const INFURA_ID = ''
-const provider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_ID}`)
-
-const address = '0x73BCEb1Cd57C711feaC4224D062b0F6ff338501e'
+  // for ethereum `https://mainnet.infura.io/v3/${RPC_ETHEREUM}`
+const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_BINANCE) 
+const address = '0x96734B59e5C44cCBE026D835e090a96F9f1B69FD'
 
 const main = async () => {
     const balance = await provider.getBalance(address)

@@ -1,7 +1,10 @@
 const { ethers } = require("ethers");
 
-const INFURA_ID = ''
-const provider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_ID}`)
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+  }
+
+const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_BINANCE)
 
 const ERC20_ABI = [
     "function name() view returns (string)",
@@ -10,7 +13,7 @@ const ERC20_ABI = [
     "function balanceOf(address) view returns (uint)",
 ];
 
-const address = '0x6B175474E89094C44Da98b954EedeAC495271d0F' // DAI Contract
+const address = '0x55d398326f99059fF775485246999027B3197955' // usdt Contract BSC
 const contract = new ethers.Contract(address, ERC20_ABI, provider)
 
 const main = async () => {
@@ -23,7 +26,7 @@ const main = async () => {
     console.log(`Symbol: ${symbol}`)
     console.log(`Total Supply: ${totalSupply}\n`)
 
-    const balance = await contract.balanceOf('0x6c6Bc977E13Df9b0de53b251522280BB72383700')
+    const balance = await contract.balanceOf('0x96734B59e5C44cCBE026D835e090a96F9f1B69FD')
 
     console.log(`Balance Returned: ${balance}`)
     console.log(`Balance Formatted: ${ethers.utils.formatEther(balance)}\n`)
